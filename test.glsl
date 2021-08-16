@@ -43,7 +43,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord){
 	vec3 cameraPos = vec3(0., 0., -5);
 	float screenZ = 2.5;
 	vec3 rayDirection = normalize(vec3(p, screenZ));
-	vec3 lightDir = vec3(-0.577, 0.577, 0.577);
+	vec3 lightDir = vec3(cos(iTime), sin(iTime), cos(iTime));
 
 	float depth = 0.;
 
@@ -62,8 +62,8 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord){
 	
 	if( dist < 0.0001){
 		vec3 normal = getNormal(rayPos);
-		float diff = clamp(dot(lightDir, normal), 1., 1.);
-		col = vec3(normal);
+		float diffuse = clamp(dot(lightDir, normal), 0.1, 1.);
+		col = vec3(diffuse);
 	}
 	
 	fragColor = vec4(col, 1.0);
